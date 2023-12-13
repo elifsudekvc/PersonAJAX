@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+
+<h2>Person List</h2>
+
+
+<button type="button" class="btn btn-info" id="ShowAddPersonModal">Add New Person</button>
+<!-- Add Person Modal -->
+<div class="modal fade" id="AddPersonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">Add New Person</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="AddPersonForm">
+                    <div class="form-group">
+                        <label for="PersonName">Person Name:</label>
+                        <input type="text" class="form-control" id="PersonName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email:</label>
+                        <input type="email" class="form-control" id="Email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Department">Department:</label>
+                        @Html.DropDownList("SelectedDepartment", ViewBag.ListOfDepartment as SelectList, "Select Department", new { @class = "form-control" })
+                    </div>
+                    <button type="button" class="btn btn-primary" id="AddPersonBtn">Add Person</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Delete modal-->
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Delete Person Record</h4>
+                <div class="modal-body">
+                    Are you sure you want to delete
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    <a class="btn btn-primary" id="ConfirmDelete">Confirm</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Person Modal -->
+<div class="modal fade" id="UpdatePersonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UpdateModalTitle">Update Person</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdatePersonForm">
+                    <input type="hidden" id="UpdatePersonId" />
+
+                    <div class="form-group">
+                        <label for="UpdatePersonName">Person Name:</label>
+                        <input type="text" class="form-control" id="UpdatePersonName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="UpdateEmail">Email:</label>
+                        <input type="email" class="form-control" id="UpdateEmail" />
+                    </div>
+                    <div class="form-group">
+                        <label for="NewDepartment">New Department:</label>
+                        @Html.DropDownList("SelectedDepartment", ViewBag.ListOfDepartment as SelectList, "Select Department", new { @id = "UpdateDepartmentId", @class = "form-control" })
+                    </div>
+                    <button type="button" class="btn btn-primary" id="UpdatePersonBtn">Update Person</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container" style="margin-top:3%">
+
+
+    <table id="personTable" class="table">
+        <thead>
+            <tr>
+                <th>Person ID</th>
+                <th>Person Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>@person.PersonId</td>
+                    <td>@person.PersonName</td>
+                    <td>@person.Email</td>
+                    <td>@(person.Departments != null ? person.Departments.DepartmentNames : " ")</td>
+                    <td>
+                        <button class="update-btn btn btn-warning" data-id="@person.PersonId" data-department-id="@person.DepartmentId" data-person-name="@person.PersonName" data-email="@person.Email">Update</button>
+                        <button class="delete-btn btn btn-danger" data-id="@person.PersonId">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $(document).ready(function () {
+            $('#personTable').DataTable();
+        });
+
+
+        $('#AddPersonBtn').click(function () {
+            var name = $('#PersonName').val();
+            var email = $('#Email').val();
+
+            $.ajax({
+                url: '@Url.Content("~/")Persons/AddPerson',
+                type: 'POST',
+                dataType: 'json',
+                data: { PersonName: name, Email: email, DepartmentId: $('#SelectedDepartment').val() },
+
+                success: function (response) {
+                    if (response.success) {
+                        $('#AddPersonModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert('Error adding person. ' + response.errors.join(' '));
+                    }
+                },
+                error: function () {
+                    alert('Error adding person.');
+                }
+            });
+        });
+
+        $('#ShowAddPersonModal').click(function () {
+            $('#AddPersonModal').modal('show');
+        });
+
+        $('.update-btn').click(function () {
+        var personId = $(this).data('id');
+        var departmentId = $(this).data('department-id');
+        var personName = $(this).data('person-name');
+        var email = $(this).data('email');
+
+        $('#UpdatePersonId').val(personId);
+        $('#UpdatePersonName').val(personName);
+        $('#UpdateEmail').val(email);
+        $('#UpdateDepartmentId').val(departmentId);
+
+        $('#UpdatePersonModal').modal('show');
+        });
+
+        $('#UpdatePersonBtn').click(function () {
+            var personId = $('#UpdatePersonId').val();
+            var updatedPersonName = $('#UpdatePersonName').val();
+            var updatedEmail = $('#UpdateEmail').val();
+            var updatedDepartmentId = $('#UpdateDepartmentId').val();
+
+            $.ajax({
+                url: '@Url.Content("~/")Persons/UpdatePerson',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    PersonId: personId,
+                    PersonName: updatedPersonName,
+                    Email: updatedEmail,
+                    DepartmentId: updatedDepartmentId
+                },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error updating person. ilk ' + response.errors);
+                    }
+                },
+                error: function () {
+                    alert('Error updating person. son');
+                }
+            });
+            $('#UpdatePersonModal').modal('hide');
+        });
+
+
+
+
+        $('.delete-btn').click(function () {
+            var personId = $(this).data('id');
+            $('#ConfirmDelete').data('id', personId);
+            $('#DeleteConfirmation').modal('show');
+        });
+
+        $('#ConfirmDelete').click(function () {
+            var personId = $(this).data('id');
+
+            $.ajax({
+                url: '@Url.Content("~/")Persons/DeletePerson',
+                type: 'POST',
+                dataType: 'json',
+                data: { PersonId: personId },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error deleting person. ' + response.errors.join(' '));
+                    }
+                },
+                error: function () {
+                    alert('Error deleting person.');
+                }
+            });
+        });
+
+
+
+    });
+</script>
+
