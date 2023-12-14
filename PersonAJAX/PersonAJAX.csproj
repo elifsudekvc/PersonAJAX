@@ -54,12 +54,96 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.1.24\lib\net461\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Dapper.Contrib, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.Contrib.2.0.78\lib\net461\Dapper.Contrib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.SqlClient.5.1.2\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.8.0.0\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.CommandLine, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.CommandLine.8.0.0\lib\net462\Microsoft.Extensions.Configuration.CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.EnvironmentVariables, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.EnvironmentVariables.8.0.0\lib\net462\Microsoft.Extensions.Configuration.EnvironmentVariables.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.8.0.0\lib\net462\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.8.0.0\lib\net462\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.UserSecrets, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.UserSecrets.8.0.0\lib\net462\Microsoft.Extensions.Configuration.UserSecrets.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Diagnostics.8.0.0\lib\net462\Microsoft.Extensions.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Diagnostics.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Diagnostics.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Diagnostics.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.8.0.0\lib\net462\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.8.0.0\lib\net462\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.8.0.0\lib\net462\Microsoft.Extensions.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.8.0.0\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Configuration, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Configuration.8.0.0\lib\net462\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Console, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Console.8.0.0\lib\net462\Microsoft.Extensions.Logging.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Debug, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Debug.8.0.0\lib\net462\Microsoft.Extensions.Logging.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.EventLog, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.EventLog.8.0.0\lib\net462\Microsoft.Extensions.Logging.EventLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.EventSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.EventSource.8.0.0\lib\net462\Microsoft.Extensions.Logging.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.8.0.0\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.ConfigurationExtensions.8.0.0\lib\net462\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Identity.Client, Version=4.47.2.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Identity.Client.4.47.2\lib\net461\Microsoft.Identity.Client.dll</HintPath>
@@ -85,6 +169,15 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.24.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.24.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.6.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.6\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -98,8 +191,8 @@
     <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
@@ -111,8 +204,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
@@ -174,11 +267,11 @@
       <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.0\lib\net462\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -258,7 +351,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -273,12 +366,235 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bootstrap.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bootstrap.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bootstrap4.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bootstrap4.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bootstrap5.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bootstrap5.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bulma.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.bulma.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.dataTables.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.dataTables.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.foundation.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.foundation.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.jqueryui.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.jqueryui.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.semanticui.css" />
+    <Content Include="DataTables\Buttons-2.4.2\css\buttons.semanticui.min.css" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bootstrap.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bootstrap.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bootstrap4.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bootstrap4.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bootstrap5.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bootstrap5.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bulma.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.bulma.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.colVis.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.colVis.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.dataTables.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.dataTables.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.foundation.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.foundation.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.html5.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.html5.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.jqueryui.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.jqueryui.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.print.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.print.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.semanticui.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\buttons.semanticui.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\dataTables.buttons.js" />
+    <Content Include="DataTables\Buttons-2.4.2\js\dataTables.buttons.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bootstrap.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bootstrap.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bootstrap4.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bootstrap4.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bootstrap5.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bootstrap5.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bulma.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.bulma.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.dataTables.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.dataTables.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.foundation.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.foundation.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.jqueryui.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.jqueryui.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.semanticui.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\dataTables.semanticui.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\jquery.dataTables.css" />
+    <Content Include="DataTables\DataTables-1.13.8\css\jquery.dataTables.min.css" />
+    <Content Include="DataTables\DataTables-1.13.8\images\sort_asc.png" />
+    <Content Include="DataTables\DataTables-1.13.8\images\sort_asc_disabled.png" />
+    <Content Include="DataTables\DataTables-1.13.8\images\sort_both.png" />
+    <Content Include="DataTables\DataTables-1.13.8\images\sort_desc.png" />
+    <Content Include="DataTables\DataTables-1.13.8\images\sort_desc_disabled.png" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bootstrap.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bootstrap.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bootstrap4.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bootstrap5.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bootstrap5.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bulma.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.bulma.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.dataTables.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.dataTables.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.foundation.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.foundation.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.jqueryui.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.jqueryui.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.semanticui.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\dataTables.semanticui.min.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\jquery.dataTables.js" />
+    <Content Include="DataTables\DataTables-1.13.8\js\jquery.dataTables.min.js" />
+    <Content Include="DataTables\datatables.css" />
+    <Content Include="DataTables\datatables.js" />
+    <Content Include="DataTables\datatables.min.css" />
+    <Content Include="DataTables\datatables.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bootstrap.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bootstrap.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bootstrap4.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bootstrap4.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bootstrap5.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bootstrap5.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bulma.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.bulma.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.dataTables.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.dataTables.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.foundation.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.foundation.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.jqueryui.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.jqueryui.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.semanticui.css" />
+    <Content Include="DataTables\Scroller-2.3.0\css\scroller.semanticui.min.css" />
+    <Content Include="DataTables\Scroller-2.3.0\js\dataTables.scroller.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\dataTables.scroller.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bootstrap.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bootstrap.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bootstrap4.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bootstrap4.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bootstrap5.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bootstrap5.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bulma.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.bulma.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.dataTables.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.dataTables.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.foundation.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.foundation.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.jqueryui.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.jqueryui.min.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.semanticui.js" />
+    <Content Include="DataTables\Scroller-2.3.0\js\scroller.semanticui.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bootstrap.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bootstrap.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bootstrap4.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bootstrap4.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bootstrap5.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bootstrap5.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bulma.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.bulma.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.dataTables.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.dataTables.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.foundation.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.foundation.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.jqueryui.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.jqueryui.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.semanticui.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\css\searchBuilder.semanticui.min.css" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\dataTables.searchBuilder.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\dataTables.searchBuilder.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bootstrap.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bootstrap.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bootstrap4.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bootstrap4.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bootstrap5.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bootstrap5.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bulma.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.bulma.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.dataTables.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.dataTables.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.foundation.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.foundation.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.jqueryui.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.jqueryui.min.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.semanticui.js" />
+    <Content Include="DataTables\SearchBuilder-1.6.0\js\searchBuilder.semanticui.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bootstrap.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bootstrap.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bootstrap4.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bootstrap4.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bootstrap5.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bootstrap5.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bulma.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.bulma.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.dataTables.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.dataTables.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.foundation.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.foundation.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.jqueryui.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.jqueryui.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.semanticui.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\css\searchPanes.semanticui.min.css" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\dataTables.searchPanes.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\dataTables.searchPanes.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bootstrap.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bootstrap.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bootstrap4.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bootstrap4.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bootstrap5.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bootstrap5.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bulma.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.bulma.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.dataTables.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.dataTables.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.foundation.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.foundation.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.jqueryui.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.jqueryui.min.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.semanticui.js" />
+    <Content Include="DataTables\SearchPanes-2.2.0\js\searchPanes.semanticui.min.js" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bootstrap.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bootstrap.min.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bootstrap4.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bootstrap4.min.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bootstrap5.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bootstrap5.min.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bulma.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.bulma.min.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.dataTables.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.dataTables.min.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.foundation.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.foundation.min.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.jqueryui.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.jqueryui.min.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.semanticui.css" />
+    <Content Include="DataTables\Select-1.7.0\css\select.semanticui.min.css" />
+    <Content Include="DataTables\Select-1.7.0\js\dataTables.select.js" />
+    <Content Include="DataTables\Select-1.7.0\js\dataTables.select.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bootstrap.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bootstrap.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bootstrap4.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bootstrap4.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bootstrap5.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bootstrap5.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bulma.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.bulma.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.dataTables.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.dataTables.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.foundation.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.foundation.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.jqueryui.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.jqueryui.min.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.semanticui.js" />
+    <Content Include="DataTables\Select-1.7.0\js\select.semanticui.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="DataTables\Buttons-2.4.2\css\common.scss" />
+    <Content Include="DataTables\Buttons-2.4.2\css\mixins.scss" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -307,10 +623,10 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Persons\Index.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Department\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

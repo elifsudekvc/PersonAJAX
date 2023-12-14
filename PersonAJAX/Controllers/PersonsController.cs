@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Dapper;
 using Newtonsoft.Json;
@@ -19,85 +20,88 @@ namespace PersonAJAX.Controllers
             _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         }
 
-
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            using (IDbConnection dbConnection = new SqlConnection(_connectionString))
+            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
             {
-                dbConnection.Open();
+                await dbConnection.OpenAsync();
 
                 var query = "SELECT p.PersonId, p.PersonName, p.Email, p.DepartmentId, d.DepartmentNames " +
-            "FROM Person p LEFT JOIN Departments d ON p.DepartmentId = d.DepartmentId";
+                            "FROM Person p LEFT JOIN Departments d ON p.DepartmentId = d.DepartmentId";
 
-                var persons = dbConnection.Query<Persons, Departments, Persons>(query, (person, department) =>
-                {
-                    person.Departments = department;
-                    return person;
-                }, splitOn: "DepartmentNames").ToList();
+                var persons = (await dbConnection.QueryAsync<Persons, Departments, Persons>(
+                    query,
+                    (person, department) =>
+                    {
+                        person.Departments = department;
+                        return person;
+                    },
+                    splitOn: "DepartmentNames")).ToList();
 
-                // Veritabanından departmanları alma
-                var departments = dbConnection.Query<Departments>("SELECT * FROM Departments").ToList();
-                // SelectList'i manuel olarak oluştur
+                var departments = (await dbConnection.QueryAsync<Departments>("SELECT * FROM Departments")).ToList();
+
                 var departmentSelectList = new SelectList(departments, "DepartmentId", "DepartmentNames");
-                // SelectList'i görünüme aktarın
+
                 ViewBag.ListOfDepartment = departmentSelectList;
 
                 return View(persons);
             }
         }
 
-
         [HttpPost]
-        public JsonResult AddPerson(Persons persons)
+        public async Task<JsonResult> AddPerson(Persons persons)
         {
-                using (IDbConnection dbConnection = new SqlConnection(_connectionString))
+            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
+            {
+                await dbConnection.OpenAsync();
+                var query = "INSERT INTO Person (PersonName, Email, DepartmentId) VALUES (@PersonName, @Email, @DepartmentId); SELECT CAST(SCOPE_IDENTITY() as int)";
+                int PersonID = (await dbConnection.QueryAsync<int>(query, new
                 {
-                    dbConnection.Open();
-                    var query = "INSERT INTO Person (PersonName, Email, DepartmentId) VALUES (@PersonName, @Email, @DepartmentId); SELECT CAST(SCOPE_IDENTITY() as int)";
-                    int PersonID = dbConnection.Query<int>(query, new { personName = persons.PersonName, email = persons.Email, persons.DepartmentId  }).Single();
-                    return Json(new { success = true, PersonID });
-                }
+                    personName = persons.PersonName,
+                    email = persons.Email,
+                    persons.DepartmentId
+                })).Single();
 
+                return Json(new { success = true, PersonID });
+            }
         }
 
-        public JsonResult GetPersonById(int PersonId)
+        public async Task<JsonResult> GetPersonById(int PersonId)
         {
+            using (var dbConnection = new SqlConnection(_connectionString))
+            {
+                await dbConnection.OpenAsync();
+                var model = await dbConnection.QueryFirstOrDefaultAsync<Persons>(
+                    "SELECT * FROM Person WHERE PersonId = @PersonId",
+                    new { PersonId });
 
-                using (var dbConnection = new SqlConnection(_connectionString))
+                if (model != null)
                 {
-                    dbConnection.Open();
-                    var model = dbConnection.QueryFirstOrDefault<Persons>(
-                        "SELECT * FROM Person WHERE PersonId = @PersonId",
-                        new { PersonId });
-
-                    if (model != null)
+                    string value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
                     {
-                        string value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        });
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
 
-                        return Json(value, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        return Json("Person not found", JsonRequestBehavior.AllowGet);
-                    }
+                    return Json(value, JsonRequestBehavior.AllowGet);
                 }
+                else
+                {
+                    return Json("Person not found", JsonRequestBehavior.AllowGet);
+                }
+            }
         }
 
         [HttpPost]
-        public JsonResult UpdatePerson(Persons persons)
+        public async Task<JsonResult> UpdatePerson(Persons persons)
         {
             try
             {
-                using (IDbConnection dbConnection = new SqlConnection(_connectionString))
+                using (SqlConnection dbConnection = new SqlConnection(_connectionString))
                 {
-                    dbConnection.Open();
-
+                    await dbConnection.OpenAsync();
                     var query = "UPDATE Person SET PersonName = @PersonName, Email = @Email, DepartmentId=@DepartmentId WHERE PersonId = @PersonId";
 
-                    dbConnection.Execute(query, new
+                    await dbConnection.ExecuteAsync(query, new
                     {
                         PersonName = persons.PersonName,
                         Email = persons.Email,
@@ -114,19 +118,16 @@ namespace PersonAJAX.Controllers
             }
         }
 
-
-
         [HttpPost]
-        public JsonResult DeletePerson(int PersonId)
+        public async Task<JsonResult> DeletePerson(int PersonId)
         {
-            using (IDbConnection dbConnection = new SqlConnection(_connectionString))
+            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
             {
-                dbConnection.Open();
+                await dbConnection.OpenAsync();
                 var query = "DELETE FROM Person WHERE PersonId = @PersonId";
-                dbConnection.Execute(query, new { PersonId = PersonId });
+                await dbConnection.ExecuteAsync(query, new { PersonId = PersonId });
                 return Json(new { success = true });
             }
         }
     }
 }
-  

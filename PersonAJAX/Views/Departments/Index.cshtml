@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+
+<h2>Department List</h2>
+
+
+<button type="button" class="btn btn-info" id="ShowAddDepartmentsModal">Add New Department</button>
+<!-- Add Departments Modal -->
+<div class="modal fade" id="AddDepartmentsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">Add New Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="AddDepartmentsForm">
+                    <div class="form-group">
+                        <label for="DepartmentNames">Department Name:</label>
+                        <input type="text" class="form-control" id="DepartmentNames" />
+                    </div>
+                    <button type="button" class="btn btn-primary" id="AddDepartmentsBtn">Add Department</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Delete modal-->
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Delete Department Record</h4>
+                <div class="modal-body">
+                    Are you sure you want to
+                </div>
+                <div class="modal-body">
+                    If any person has the department you want to delete, it will not be deleted.
+                </div>
+
+
+                <div class="modal-footer">
+                    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    <a class="btn btn-primary" id="ConfirmDelete">Confirm</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Department Modal -->
+<div class="modal fade" id="UpdateDepartmentsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UpdateModalTitle">Update Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdatePersonForm">
+                    <input type="hidden" id="UpdateDepartmentId" />
+
+                    <div class="form-group">
+                        <label for="UpdateDepartmentsName">Department Name:</label>
+                        <input type="text" class="form-control" id="UpdateDepartmentsName" />
+                    </div>
+                    <button type="button" class="btn btn-primary" id="UpdateDepartmentsBtn">Update Person</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container" style="margin-top:3%">
+
+
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>Department ID</th>
+                <th>Department Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var department in Model)
+            {
+                <tr>
+                    <td>@department.DepartmentId</td>
+                    <td>@department.DepartmentNames</td>
+                    <td>
+                        <button class="update-btn btn btn-warning" data-id="@department.DepartmentId" data-department-name="@department.DepartmentNames">Update</button>
+                        <button class="delete-btn btn btn-danger" data-id="@department.DepartmentId">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+        $(document).ready(function () {
+
+
+        $('#AddDepartmentsBtn').click(function () {
+            var name = $('#DepartmentNames').val();
+
+            $.ajax({
+                url: '@Url.Content("~/")Departments/AddDepartments',
+                type: 'POST',
+                dataType: 'json',
+                data: { DepartmentNames: name },
+
+                success: function (response) {
+                    if (response.success) {
+                        $('#AddDepartmentsModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert('Error adding department. ' + response.errors.join(' '));
+                    }
+                },
+                error: function () {
+                    alert('Error adding department.');
+                }
+            });
+        });
+
+        $('#ShowAddDepartmentsModal').click(function () {
+            $('#AddDepartmentsModal').modal('show');
+        });
+
+        $('.update-btn').click(function () {
+        var DepartmentId = $(this).data('id');
+        var DepartmentNames = $(this).data('department-name');
+
+        $('#UpdateDepartmentId').val(DepartmentId);
+        $('#UpdateDepartmentsName').val(DepartmentNames);
+
+        $('#UpdateDepartmentsModal').modal('show');
+        });
+
+        $('#UpdateDepartmentsBtn').click(function () {
+            var departmentId = $('#UpdateDepartmentId').val();
+            var updatedDepartmentName = $('#UpdateDepartmentsName').val();
+
+
+            $.ajax({
+                url: '@Url.Content("~/")Departments/UpdateDepartments',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    DepartmentId: departmentId,
+                    DepartmentNames: updatedDepartmentName
+
+                },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error updating department. ilk ' + response.errors);
+                    }
+                },
+                error: function () {
+                    alert('Error updating department. son');
+                }
+            });
+            $('#UpdateDepartmentsModal').modal('hide');
+        });
+
+
+
+
+        $('.delete-btn').click(function () {
+            var departmentId = $(this).data('id');
+            $('#ConfirmDelete').data('id', departmentId);
+            $('#DeleteConfirmation').modal('show');
+        });
+
+        $('#ConfirmDelete').click(function () {
+            var departmentId = $(this).data('id');
+
+            $.ajax({
+                url: '@Url.Content("~/")Departments/DeleteDepartments',
+                type: 'POST',
+                dataType: 'json',
+                data: { DepartmentId: departmentId },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error deleting Department. ilk ' + response.errors.join(' '));
+                    }
+                },
+                error: function () {
+                    alert('The department you want to delete will not be deleted because it exists in the person.');
+                }
+            });
+        });
+
+    });
+</script>
+<script src="~/DataTables/datatables.min.js"></script>
+<link href="~/DataTables/datatables.min.css" rel="stylesheet" />
+@section scripts{
+    <script>
+        var table = new DataTable('#myTable');
+    </script>
+
+}

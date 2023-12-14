@@ -20,9 +20,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- Aşağıdaki satır, uygulama başladığında /Persons sayfasına yönlendirecek -->
-                <a href="@Url.Action("Index", "Persons")" class="navbar-brand">PersonAjax</a>
+                <a href="@Url.Action("Index", "Persons")" class="navbar-brand">Persons</a>
             </div>
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
+                </ul>
             </div>
         </div>
     </div>

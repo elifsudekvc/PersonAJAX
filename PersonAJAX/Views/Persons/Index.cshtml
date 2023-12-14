@@ -100,7 +100,7 @@
 <div class="container" style="margin-top:3%">
 
 
-    <table id="personTable" class="table">
+    <table id="myTable" class="table">
         <thead>
             <tr>
                 <th>Person ID</th>
@@ -211,8 +211,6 @@
         });
 
 
-
-
         $('.delete-btn').click(function () {
             var personId = $(this).data('id');
             $('#ConfirmDelete').data('id', personId);
@@ -244,4 +242,12 @@
 
     });
 </script>
+<script src="~/DataTables/datatables.min.js"></script>
+<link href="~/DataTables/datatables.min.css" rel="stylesheet" />
+@section scripts{
+    <script>
+        var table = new DataTable('#myTable');
+    </script>
+
+}
 
