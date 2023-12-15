@@ -216,3 +216,7 @@ C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Microsoft.
 C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Microsoft.Owin.xml
 C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Ninject.dll
 C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Ninject.xml
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\System.IO.Pipelines.dll
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Microsoft.AspNetCore.Http.Features.xml
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\System.IO.Pipelines.xml

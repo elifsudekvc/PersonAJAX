@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -15,12 +14,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalTitle">Add New Person</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" onclick="clearModal()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+
             </div>
             <div class="modal-body">
-                <form id="AddPersonForm">
+                <form id="AddPersonForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="ProfileImage">Profile Image:</label>
+                        <input type="file" name="ProfileImage" class="form-control" id="ProfileImage" onchange="document.getElementById('FrontImagePrvAdd').src = window.URL.createObjectURL(this.files[0])" />
+                        <img id="FrontImagePrvAdd" src="" style="width: 150px; height: 150px; margin: 10px"/>
+                    </div>
                     <div class="form-group">
                         <label for="PersonName">Person Name:</label>
                         <input type="text" class="form-control" id="PersonName" />
@@ -72,9 +77,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="UpdatePersonForm">
+                <form id="UpdatePersonForm" enctype="multipart/form-data">
                     <input type="hidden" id="UpdatePersonId" />
 
+                    <div class="form-group">
+                        <label for="ProfileImage">Profile Image:</label>
+                        <input type="file" name="ProfileImage" class="form-control" id="UpdateProfileImage" onchange="document.getElementById('FrontImagePrvUpdate').src = window.URL.createObjectURL(this.files[0])" />
+                        <img id="FrontImagePrvUpdate" src="" style="width: 150px; height: 150px; margin: 10px" />
+                    </div>
                     <div class="form-group">
                         <label for="UpdatePersonName">Person Name:</label>
                         <input type="text" class="form-control" id="UpdatePersonName" />
@@ -103,7 +113,7 @@
     <table id="myTable" class="table">
         <thead>
             <tr>
-                <th>Person ID</th>
+                <th>Image</th>
                 <th>Person Name</th>
                 <th>Email</th>
                 <th>Department</th>
@@ -114,12 +124,22 @@
             @foreach (var person in Model)
             {
                 <tr>
-                    <td>@person.PersonId</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(person.ProfileImage))
+                        {
+                            <img src="@person.ProfileImage" alt="Image" class="img-thumbnail" style="max-width: 80px; max-height: 80px;" />
+
+                        }
+                        else
+                        {
+                            <img src="~/AppFile/Images/default.png" alt="Default Image" class="img-thumbnail" style="max-width: 80px; max-height: 80px;" />
+                        }
+                    </td>
                     <td>@person.PersonName</td>
                     <td>@person.Email</td>
                     <td>@(person.Departments != null ? person.Departments.DepartmentNames : " ")</td>
                     <td>
-                        <button class="update-btn btn btn-warning" data-id="@person.PersonId" data-department-id="@person.DepartmentId" data-person-name="@person.PersonName" data-email="@person.Email">Update</button>
+                        <button class="update-btn btn btn-warning" data-id="@person.PersonId" data-profile-image="@person.ProfileImage" data-department-id="@person.DepartmentId" data-person-name="@person.PersonName" data-email="@person.Email">Update</button>
                         <button class="delete-btn btn btn-danger" data-id="@person.PersonId">Delete</button>
                     </td>
                 </tr>
@@ -128,87 +148,120 @@
     </table>
 </div>
 
+<script>
+    function clearModal() {
+        document.getElementById('AddPersonForm').reset();
+        document.getElementById('FrontImagePrv').src = "";
+    }
+
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('FrontImagePrv').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 
 <script>
     $(document).ready(function () {
 
-        $(document).ready(function () {
-            $('#personTable').DataTable();
-        });
+
+$('#AddPersonBtn').click(function () {
+    var formData = new FormData();
+
+    formData.append("PersonName", $('#PersonName').val());
+    formData.append("Email", $('#Email').val());
+    formData.append("DepartmentId", $('#SelectedDepartment').val());
+
+    var profileImageInput = $('#ProfileImage')[0];
+    if (profileImageInput.files.length > 0) {
+        formData.append("ImageUpload", profileImageInput.files[0]);
+    }
+
+    $.ajax({
+        url: '@Url.Content("~/Persons/AddPerson")',
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                $('#AddPersonModal').modal('hide');
+                location.reload();
+            } else {
+                alert('Error adding person. ' + response.errors.join(' '));
+            }
+        },
+        error: function () {
+            alert('Error adding person.');
+        }
+    });
+});
 
 
-        $('#AddPersonBtn').click(function () {
-            var name = $('#PersonName').val();
-            var email = $('#Email').val();
-
-            $.ajax({
-                url: '@Url.Content("~/")Persons/AddPerson',
-                type: 'POST',
-                dataType: 'json',
-                data: { PersonName: name, Email: email, DepartmentId: $('#SelectedDepartment').val() },
-
-                success: function (response) {
-                    if (response.success) {
-                        $('#AddPersonModal').modal('hide');
-                        location.reload();
-                    } else {
-                        alert('Error adding person. ' + response.errors.join(' '));
-                    }
-                },
-                error: function () {
-                    alert('Error adding person.');
-                }
-            });
-        });
 
         $('#ShowAddPersonModal').click(function () {
             $('#AddPersonModal').modal('show');
         });
 
         $('.update-btn').click(function () {
-        var personId = $(this).data('id');
-        var departmentId = $(this).data('department-id');
-        var personName = $(this).data('person-name');
-        var email = $(this).data('email');
+            $('#UpdatePersonModal').modal('show');
 
-        $('#UpdatePersonId').val(personId);
-        $('#UpdatePersonName').val(personName);
-        $('#UpdateEmail').val(email);
-        $('#UpdateDepartmentId').val(departmentId);
+            var personId = $(this).data('id');
+            var departmentId = $(this).data('department-id');
+            var personName = $(this).data('person-name');
+            var email = $(this).data('email');
+            var image = $(this).data('profile-image')
 
-        $('#UpdatePersonModal').modal('show');
+            $('#UpdatePersonId').val(personId);
+            $('#UpdatePersonName').val(personName);
+            $('#UpdateEmail').val(email);
+            $('#UpdateDepartmentId').val(departmentId);
+            $('#UpdateProfileImage').val(image)
+
+
         });
 
         $('#UpdatePersonBtn').click(function () {
-            var personId = $('#UpdatePersonId').val();
-            var updatedPersonName = $('#UpdatePersonName').val();
-            var updatedEmail = $('#UpdateEmail').val();
-            var updatedDepartmentId = $('#UpdateDepartmentId').val();
+    var formData = new FormData();
 
-            $.ajax({
-                url: '@Url.Content("~/")Persons/UpdatePerson',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    PersonId: personId,
-                    PersonName: updatedPersonName,
-                    Email: updatedEmail,
-                    DepartmentId: updatedDepartmentId
-                },
-                success: function (response) {
-                    if (response.success) {
-                        location.reload();
-                    } else {
-                        alert('Error updating person. ilk ' + response.errors);
-                    }
-                },
-                error: function () {
-                    alert('Error updating person. son');
-                }
-            });
-            $('#UpdatePersonModal').modal('hide');
-        });
+    formData.append("PersonId", $('#UpdatePersonId').val());
+    formData.append("PersonName", $('#UpdatePersonName').val());
+    formData.append("Email", $('#UpdateEmail').val());
+    formData.append("DepartmentId", $('#UpdateDepartmentId').val());
+
+    var profileImageInput = $('#UpdateProfileImage')[0];
+    if (profileImageInput.files.length > 0) {
+        formData.append("ImageUpload", profileImageInput.files[0]);
+    }
+
+    $.ajax({
+        url: '@Url.Content("~/Persons/UpdatePerson")',
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                $('#UpdatePersonModal').modal('hide');
+                location.reload();
+            } else {
+                alert('Error updating person. ' + response.errors);
+            }
+        },
+        error: function () {
+            alert('Error updating person.');
+        }
+    });
+});
+
+
 
 
         $('.delete-btn').click(function () {
@@ -250,4 +303,3 @@
     </script>
 
 }
-

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -26,8 +27,8 @@ namespace PersonAJAX.Controllers
             {
                 await dbConnection.OpenAsync();
 
-                var query = "SELECT p.PersonId, p.PersonName, p.Email, p.DepartmentId, d.DepartmentNames " +
-                            "FROM Person p LEFT JOIN Departments d ON p.DepartmentId = d.DepartmentId";
+                var query = "SELECT p.PersonId, p.PersonName, p.Email, p.ProfileImage, p.DepartmentId, d.DepartmentNames " +
+            "FROM Person p LEFT JOIN Departments d ON p.DepartmentId = d.DepartmentId";
 
                 var persons = (await dbConnection.QueryAsync<Persons, Departments, Persons>(
                     query,
@@ -51,20 +52,42 @@ namespace PersonAJAX.Controllers
         [HttpPost]
         public async Task<JsonResult> AddPerson(Persons persons)
         {
-            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
+            try
             {
-                await dbConnection.OpenAsync();
-                var query = "INSERT INTO Person (PersonName, Email, DepartmentId) VALUES (@PersonName, @Email, @DepartmentId); SELECT CAST(SCOPE_IDENTITY() as int)";
-                int PersonID = (await dbConnection.QueryAsync<int>(query, new
+                using (SqlConnection dbConnection = new SqlConnection(_connectionString))
                 {
-                    personName = persons.PersonName,
-                    email = persons.Email,
-                    persons.DepartmentId
-                })).Single();
+                    await dbConnection.OpenAsync();
+                    var query = "INSERT INTO Person (PersonName, Email, DepartmentId, ProfileImage) VALUES (@PersonName, @Email, @DepartmentId, @ProfileImage); SELECT CAST(SCOPE_IDENTITY() as int)";
 
-                return Json(new { success = true, PersonID });
+                    
+                    using (Stream fileStream = persons.ImageUpload.InputStream)
+                    {
+                        
+                        string relativePath = "/AppFile/Images/" + persons.ImageUpload.FileName;
+                        
+                        persons.ImageUpload.SaveAs(Server.MapPath("~" + relativePath));
+
+                        persons.ProfileImage = relativePath;
+
+                        int PersonID = (await dbConnection.QueryAsync<int>(query, new
+                        {
+                            personName = persons.PersonName,
+                            email = persons.Email,
+                            profileImage = persons.ProfileImage,
+                            persons.DepartmentId
+                        })).Single();
+
+                        return Json(new { success = true, PersonID });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, errors = ex.Message });
             }
         }
+
+
 
         public async Task<JsonResult> GetPersonById(int PersonId)
         {
@@ -99,13 +122,26 @@ namespace PersonAJAX.Controllers
                 using (SqlConnection dbConnection = new SqlConnection(_connectionString))
                 {
                     await dbConnection.OpenAsync();
-                    var query = "UPDATE Person SET PersonName = @PersonName, Email = @Email, DepartmentId=@DepartmentId WHERE PersonId = @PersonId";
+
+                    if (persons.ImageUpload != null && persons.ImageUpload.ContentLength > 0)
+                    {
+                        
+                        using (Stream fileStream = persons.ImageUpload.InputStream)
+                        {
+                            string relativePath = "/AppFile/Images/" + persons.ImageUpload.FileName;
+                            persons.ImageUpload.SaveAs(Server.MapPath("~" + relativePath));
+                            persons.ProfileImage = relativePath;
+                        }
+                    }
+
+                    var query = "UPDATE Person SET PersonName = @PersonName, Email = @Email, DepartmentId=@DepartmentId, ProfileImage=@ProfileImage WHERE PersonId = @PersonId";
 
                     await dbConnection.ExecuteAsync(query, new
                     {
                         PersonName = persons.PersonName,
                         Email = persons.Email,
                         PersonId = persons.PersonId,
+                        ProfileImage = persons.ProfileImage,
                         DepartmentId = persons.DepartmentId
                     });
 
@@ -117,6 +153,7 @@ namespace PersonAJAX.Controllers
                 return Json(new { success = false, errors = ex.Message });
             }
         }
+
 
         [HttpPost]
         public async Task<JsonResult> DeletePerson(int PersonId)
