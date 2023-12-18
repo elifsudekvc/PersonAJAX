@@ -20,11 +20,35 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- Aşağıdaki satır, uygulama başladığında /Persons sayfasına yönlendirecek -->
-                <a href="@Url.Action("Index", "Persons")" class="navbar-brand">Persons</a>
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand">Home</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("User"))
+                        {
+                            <li>@Html.ActionLink("UserArea", "UserArea", "Home")</li>
+
+                        }
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("User Area", "UserArea", "Home")</li>
+                            <li>@Html.ActionLink("Persons", "Index", "Persons")</li>
+
+                            <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
+
+                        }
+                        <li><a href="@Url.Action("Logout", "Login")">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Login")</li>
+
+                        <li>@Html.ActionLink("Register", "Register", "Login")</li>
+                    }
+
                 </ul>
             </div>
         </div>

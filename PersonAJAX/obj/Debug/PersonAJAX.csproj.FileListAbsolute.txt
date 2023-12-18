@@ -220,3 +220,7 @@ C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Microsoft.
 C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\System.IO.Pipelines.dll
 C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\Microsoft.AspNetCore.Http.Features.xml
 C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\System.IO.Pipelines.xml
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\EntityFramework.dll
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\EntityFramework.SqlServer.dll
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\EntityFramework.xml
+C:\Users\eskvc\OneDrive\Masaüstü\back end\PersonAJAX\PersonAJAX\bin\EntityFramework.SqlServer.xml

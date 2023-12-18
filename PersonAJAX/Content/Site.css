@@ -28,3 +28,18 @@ textarea {
     background-color: #777;
     border-color: #fff
 }
+
+.MainTitle{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+.MainPicture{
+    width:40%;
+    height:40%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-left:300px;
+}

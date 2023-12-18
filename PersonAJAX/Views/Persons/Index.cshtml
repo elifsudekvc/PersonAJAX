@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label for="ProfileImage">Profile Image:</label>
                         <input type="file" name="ProfileImage" class="form-control" id="ProfileImage" onchange="document.getElementById('FrontImagePrvAdd').src = window.URL.createObjectURL(this.files[0])" />
-                        <img id="FrontImagePrvAdd" src="" style="width: 150px; height: 150px; margin: 10px"/>
+                        <img id="FrontImagePrvAdd" src="" style="width: 150px; height: 150px; margin: 10px" />
                     </div>
                     <div class="form-group">
                         <label for="PersonName">Person Name:</label>
@@ -82,7 +82,7 @@
 
                     <div class="form-group">
                         <label for="ProfileImage">Profile Image:</label>
-                        <input type="file" name="ProfileImage" class="form-control" id="UpdateProfileImage" onchange="document.getElementById('FrontImagePrvUpdate').src = window.URL.createObjectURL(this.files[0])" />
+                        <input type="file" name="ProfileImage" class="form-control" id="UpdateProfileImage" onchange="updatePreviewImage()" />
                         <img id="FrontImagePrvUpdate" src="" style="width: 150px; height: 150px; margin: 10px" />
                     </div>
                     <div class="form-group">
@@ -104,6 +104,26 @@
     </div>
 </div>
 
+<!-- Image Preview Modal -->
+<div class="modal fade" id="ImagePreviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ImageModalTitle">Image Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="EnlargedImage" src="" style="width: 90%;" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="SaveImageBtn">Save Image</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -127,7 +147,7 @@
                     <td>
                         @if (!string.IsNullOrEmpty(person.ProfileImage))
                         {
-                            <img src="@person.ProfileImage" alt="Image" class="img-thumbnail" style="max-width: 80px; max-height: 80px;" />
+                            <img src="@person.ProfileImage" alt="Image" class="img-thumbnail img-preview" style="max-width: 80px; max-height: 80px; cursor:pointer;" data-toggle="modal" data-target="#ImagePreviewModal" data-image-url="@person.ProfileImage" />
 
                         }
                         else
@@ -162,7 +182,70 @@
             };
             reader.readAsDataURL(input.files[0]);
         }
+
     }
+    // Bu fonksiyon, resmin değişip değişmediğini kontrol eder
+    function isProfileImageChanged() {
+        var input = document.getElementById('UpdateProfileImage');
+        return input.files && input.files[0];
+    }
+</script>
+
+<script>
+    //resim önizleme ve kaydetme
+    $(document).ready(function () {
+        $('.img-preview').click(function () {
+            var imageUrl = $(this).data('image-url');
+            $('#EnlargedImage').attr('src', imageUrl);
+            $('#ImageModalTitle').text('Image Preview');
+        });
+
+
+        $('#SaveImageBtn').click(function () {
+            var imageUrl = $('#EnlargedImage').attr('src');
+            var a = document.createElement('a');
+            a.href = imageUrl;
+            a.download = 'image.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    });
+</script>
+
+<script>
+    function updatePreviewImage() {
+        var input = document.getElementById('UpdateProfileImage');
+        var preview = document.getElementById('FrontImagePrvUpdate');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            // If no new image is selected, keep the original image
+            preview.src = $('#FrontImagePrvUpdate').data('original-src');
+        }
+    }
+
+    $('#UpdatePersonModal').on('show.bs.modal', function () {
+        // Set the data-original-src attribute when the modal is shown
+        var originalSrc = $('#FrontImagePrvUpdate').attr('src');
+        $('#FrontImagePrvUpdate').data('original-src', originalSrc);
+    });
+
+    function isProfileImageChanged() {
+        var input = document.getElementById('UpdateProfileImage');
+        return input.files && input.files[0] && $('#FrontImagePrvUpdate').data('original-src') !== input.files[0].name;
+    }
+
+
+    // Bu fonksiyon, modal açıldığında orijinal resmin URL'sini saklar
+    $('#UpdatePersonModal').on('show.bs.modal', function () {
+        originalImageSrc = $('#FrontImagePrvUpdate').attr('src');
+    });
 </script>
 
 
@@ -222,7 +305,7 @@ $('#AddPersonBtn').click(function () {
             $('#UpdatePersonName').val(personName);
             $('#UpdateEmail').val(email);
             $('#UpdateDepartmentId').val(departmentId);
-            $('#UpdateProfileImage').val(image)
+            $('#FrontImagePrvUpdate').attr('src', image).attr('data-current-image', image);
 
 
         });
@@ -235,10 +318,9 @@ $('#AddPersonBtn').click(function () {
     formData.append("Email", $('#UpdateEmail').val());
     formData.append("DepartmentId", $('#UpdateDepartmentId').val());
 
-    var profileImageInput = $('#UpdateProfileImage')[0];
-    if (profileImageInput.files.length > 0) {
-        formData.append("ImageUpload", profileImageInput.files[0]);
-    }
+            if (isProfileImageChanged()) {
+                formData.append("ImageUpload", $('#UpdateProfileImage')[0].files[0]);
+            }
 
     $.ajax({
         url: '@Url.Content("~/Persons/UpdatePerson")',
@@ -302,4 +384,4 @@ $('#AddPersonBtn').click(function () {
         var table = new DataTable('#myTable');
     </script>
 
-}
+}   

@@ -18,7 +18,7 @@ namespace PersonAJAX.Controllers
 
         public PersonsController()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
         }
 
         public async Task<ActionResult> Index()

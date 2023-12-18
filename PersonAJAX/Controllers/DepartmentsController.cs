@@ -17,7 +17,7 @@ namespace PersonAJAX.Controllers
 
         public DepartmentsController()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
         }
 
 
