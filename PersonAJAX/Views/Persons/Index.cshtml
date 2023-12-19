@@ -82,8 +82,8 @@
 
                     <div class="form-group">
                         <label for="ProfileImage">Profile Image:</label>
-                        <input type="file" name="ProfileImage" class="form-control" id="UpdateProfileImage" onchange="updatePreviewImage()" />
-                        <img id="FrontImagePrvUpdate" src="" style="width: 150px; height: 150px; margin: 10px" />
+                        <input type="file" name="ProfileImage" class="form-control" id="UpdateProfileImage" />
+                        <img id="FrontImagePrvUpdate" src="" style="width: 150px; height: 150px; margin: 10px" data-original-src="" />
                     </div>
                     <div class="form-group">
                         <label for="UpdatePersonName">Person Name:</label>
@@ -214,7 +214,20 @@
 </script>
 
 <script>
-    function updatePreviewImage() {
+    // Bu fonksiyon, resmin değişip değişmediğini kontrol eder
+    function isProfileImageChangedUpdate() {
+        var input = document.getElementById('UpdateProfileImage');
+        return input.files && input.files[0] && $('#FrontImagePrvUpdate').data('original-src') !== input.files[0].name;
+    }
+
+    // Bu fonksiyon, modal açıldığında orijinal resmin URL'sini saklar
+    $('#UpdatePersonModal').on('show.bs.modal', function () {
+        var originalImageSrc = $('#FrontImagePrvUpdate').attr('src');
+        $('#FrontImagePrvUpdate').data('original-src', originalImageSrc);
+    });
+
+    // Bu fonksiyon, resmi değiştirmeyi kontrol eder ve günceller
+    function updatePreviewImageUpdate() {
         var input = document.getElementById('UpdateProfileImage');
         var preview = document.getElementById('FrontImagePrvUpdate');
 
@@ -229,24 +242,9 @@
             preview.src = $('#FrontImagePrvUpdate').data('original-src');
         }
     }
-
-    $('#UpdatePersonModal').on('show.bs.modal', function () {
-        // Set the data-original-src attribute when the modal is shown
-        var originalSrc = $('#FrontImagePrvUpdate').attr('src');
-        $('#FrontImagePrvUpdate').data('original-src', originalSrc);
-    });
-
-    function isProfileImageChanged() {
-        var input = document.getElementById('UpdateProfileImage');
-        return input.files && input.files[0] && $('#FrontImagePrvUpdate').data('original-src') !== input.files[0].name;
-    }
-
-
-    // Bu fonksiyon, modal açıldığında orijinal resmin URL'sini saklar
-    $('#UpdatePersonModal').on('show.bs.modal', function () {
-        originalImageSrc = $('#FrontImagePrvUpdate').attr('src');
-    });
 </script>
+
+
 
 
 <script>
@@ -306,7 +304,6 @@ $('#AddPersonBtn').click(function () {
             $('#UpdateEmail').val(email);
             $('#UpdateDepartmentId').val(departmentId);
             $('#FrontImagePrvUpdate').attr('src', image).attr('data-current-image', image);
-
 
         });
 

@@ -29,7 +29,8 @@
                     {
                         if (User.IsInRole("User"))
                         {
-                            <li>@Html.ActionLink("UserArea", "UserArea", "Home")</li>
+                            <li>@Html.ActionLink("User Area", "UserArea", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Index", "Email")</li>
 
                         }
                         if (User.IsInRole("Admin"))

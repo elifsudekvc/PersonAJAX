@@ -365,6 +365,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
@@ -374,6 +375,7 @@
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\DBSet.cs" />
     <Compile Include="Models\Departments.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Persons.cs" />
     <Compile Include="Models\User.cs" />
@@ -649,6 +651,7 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Home\UserArea.cshtml" />
+    <Content Include="Views\Email\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

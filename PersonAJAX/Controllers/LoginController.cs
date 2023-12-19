@@ -60,6 +60,12 @@ namespace PersonAJAX.Controllers
                         return RedirectToAction("AdminArea", "Home");
                     }
                 }
+                else
+                {
+                    // Kullanıcı girişi başarısız olduğunda ModelState'e bir hata ekleyerek kullanıcıyı bilgilendir
+                    ModelState.AddModelError("", "Geçersiz kullanıcı adı veya şifre.");
+                }
+
             }
             return View();
         }
