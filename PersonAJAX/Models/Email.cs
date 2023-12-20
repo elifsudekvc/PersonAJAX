@@ -9,7 +9,7 @@ namespace PersonAJAX.Models
 {
     public class Email
     {
-        [DisplayName("Email")]
+        [DisplayName("Enter Your Email")]
         public string SenderEmail { get; set; }
 
         [DisplayName("Email Password")]

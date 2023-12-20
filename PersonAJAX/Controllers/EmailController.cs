@@ -20,7 +20,7 @@ namespace PersonAJAX.Controllers
 
         [HttpPost]
         
-        public ActionResult Index(Email model)
+        public ActionResult Index(Email model, HttpPostedFileBase myFiles)
         {
             MailMessage mailMessage = new MailMessage();
             mailMessage.To.Add("elifkvc88@gmail.com");
@@ -28,6 +28,11 @@ namespace PersonAJAX.Controllers
             mailMessage.Subject = "You have a message from the person page. Title:  " + model.Title;
             mailMessage.Body = "Message from: "+model.NameSurname+" Message: "+model.Message;
             mailMessage.IsBodyHtml = true;
+
+            if(myFiles != null)
+            {
+                mailMessage.Attachments.Add(new Attachment(myFiles.InputStream, myFiles.FileName));
+            }
 
             SmtpClient smtp = new SmtpClient();
             smtp.Credentials = new NetworkCredential(model.SenderEmail, model.SenderEmailPassword);
