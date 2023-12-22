@@ -1,7 +1,13 @@
-﻿using PersonAJAX.Models;
+﻿using Dapper;
+using PersonAJAX.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -10,65 +16,92 @@ namespace PersonAJAX.Controllers
 {
     public class LoginController : Controller
     {
+
+        private readonly string _connectionString;
+
+        public LoginController()
+        {
+            _connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
+        }
+
         // GET: Login
         public ActionResult Register()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Register(User user)
+        public async Task<ActionResult> Register(User user)
         {
-            using (DB db = new DB())
+            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                await dbConnection.OpenAsync();
+
+                user.HashPassword();
+
+                await dbConnection.QueryAsync<User>("INSERT INTO Users (UserName, UserEmail, Password, RoleId) VALUES (@UserName, @UserEmail, @Password, @RoleId)", user);
                 ModelState.Clear();
             }
-            return View();
+            FormsAuthentication.SetAuthCookie(user.UserEmail, true);
+
+
+            Session["UserId"] = user.UserId;
+            Session["UserName"] = user.UserName;
+            Session["UserRole"] = user.RoleId;
+            return RedirectToAction("Index", "Home");
         }
+
 
 
         public ActionResult Login()
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult Login(Login login)
+        public async Task<ActionResult> Login(Login login)
         {
-            using (DB db = new DB())
+            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
             {
-                //kullanıcı adı ve şifre bilgilerini kullanarak kullanıcıyı kimlik doğrulama işlemine tabi tutar.
-                var user=db.Users.Where(a=>a.UserEmail==login.UserEmail&&a.Password==login.Password).FirstOrDefault();
-                //Eğer geçerli bir kullanıcı bulunursa, bu kullanıcı için bir FormsAuthenticationTicket oluşturulur.
-                //Bu bileti şifrelemek ve kullanıcıya bir çerez olarak sunmak için FormsAuthentication.Encrypt metodu kullanılır. 
-                if (user!=null)
+                await dbConnection.OpenAsync();
+
+                var user = await dbConnection.QueryFirstOrDefaultAsync<User>("SELECT * FROM Users WHERE UserEmail = @UserEmail", login);
+
+                if (user != null)
                 {
-                    var Ticket = new FormsAuthenticationTicket(login.UserEmail, true, 3000);
-                    string Encrypt = FormsAuthentication.Encrypt(Ticket);
-                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, Encrypt);
-                    cookie.Expires= DateTime.Now.AddHours(3000);
-                    cookie.HttpOnly= true;
-                    Response.Cookies.Add(cookie);
-                    //Kullanıcının rolüne göre yönlendirme yapılır. Kullanıcının rolü 1 ise "UserArea" sayfasına, değilse "AdminArea" sayfasına yönlendirilir.
-                    if (user.RoleId == 1)
+                    using (SHA256 sha256 = SHA256.Create())
                     {
-                        return RedirectToAction("UserArea", "Home");
+                        byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(login.Password));
+                        string hashedPassword = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+
+                        if (user.Password == hashedPassword)
+                        {
+                            
+                            FormsAuthentication.SetAuthCookie(user.UserEmail, true);
+
+                            Session["UserId"] = user.UserId;
+                            Session["UserName"] = user.UserName;
+                            Session["UserRole"] = user.RoleId;
+                            Session["UserEmail"] = user.UserEmail;
+                            Session["UserPassword"] = login.Password; // Şifre değerini oturuma ekle
+
+
+                            if (user.RoleId == 1)
+                            {
+                                return RedirectToAction("UserArea", "Home");
+                            }
+                            else
+                            {
+                                return RedirectToAction("AdminArea", "Home");
+                            }
+                        }
                     }
-                    else
-                    {
-                        return RedirectToAction("AdminArea", "Home");
-                    }
-                }
-                else
-                {
-                    // Kullanıcı girişi başarısız olduğunda ModelState'e bir hata ekleyerek kullanıcıyı bilgilendir
-                    ModelState.AddModelError("", "Geçersiz kullanıcı adı veya şifre.");
                 }
 
+                ModelState.AddModelError("", "Invalid username or password.");
             }
+
             return View();
         }
+
 
         public ActionResult Logout()
         {

@@ -8,10 +8,14 @@ namespace PersonAJAX.Models
 {
     public class UserRole
     {
+        public UserRole()
+        {
+            this.Users = new HashSet<User>();
+        }
         [Key]
         public int RoleId { get; set; }
         public string RoleName { get; set; }
 
-        public List<User> Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

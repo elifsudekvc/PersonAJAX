@@ -13,18 +13,21 @@ namespace PersonAJAX.Controllers
     public class EmailController : Controller
     {
         // GET: Email
+        [CustomAuthorize("Admin", "User")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        
+        [CustomAuthorize("Admin", "User")]
         public ActionResult Index(Email model, HttpPostedFileBase myFiles)
         {
             MailMessage mailMessage = new MailMessage();
             mailMessage.To.Add("elifkvc88@gmail.com");
-            mailMessage.From= new MailAddress(model.SenderEmail);
+            model.SenderEmail= Session["UserEmail"] as string;
+            model.SenderEmailPassword= Session["UserPassword"] as string;
+            mailMessage.From = new MailAddress(Session["UserEmail"] as string);
             mailMessage.Subject = "You have a message from the person page. Title:  " + model.Title;
             mailMessage.Body = "Message from: "+model.NameSurname+" Message: "+model.Message;
             mailMessage.IsBodyHtml = true;

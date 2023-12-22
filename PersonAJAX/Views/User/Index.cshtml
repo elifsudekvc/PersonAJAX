@@ -1,0 +1,268 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+
+<h2>User List</h2>
+
+
+<button type="button" class="btn btn-info" id="ShowAddUserModal">Add New User</button>
+<!-- Add User Modal -->
+<div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">Add New User</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="clearModal()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <form id="AddUserForm">
+                    <div class="form-group">
+                        <label for="UserName">User Name:</label>
+                        <input type="text" class="form-control" id="UserName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="UserEmail">Email:</label>
+                        <input type="email" class="form-control" id="UserEmail" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Password:</label>
+                        <input type="password" class="form-control" id="Password" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Role">Role:</label>
+                        @Html.DropDownList("SelectedUserRole", ViewBag.ListOfUserRole as SelectList, "Select Role", new { @class = "form-control" })
+                    </div>
+                    <button type="button" class="btn btn-primary" id="AddUserBtn">Add User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Delete modal-->
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Delete User Record</h4>
+                <div class="modal-body">
+                    Are you sure you want to delete
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    <a class="btn btn-primary" id="ConfirmDelete">Confirm</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Person Modal -->
+<div class="modal fade" id="UpdateUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UpdateModalTitle">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdateUserForm">
+                    <input type="hidden" id="UpdateUserId" />
+
+                    <div class="form-group">
+                        <label for="UpdateUserName">User Name:</label>
+                        <input type="text" class="form-control" id="UpdateUserName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="UpdateUserEmail">Email:</label>
+                        <input type="email" class="form-control" id="UpdateUserEmail" />
+                    </div>
+                    <div class="form-group">
+                        <label for="NewUserRole">New Role:</label>
+                        @Html.DropDownList("SelectedUserRole", ViewBag.ListOfUserRole as SelectList, "Select Role", new { @id = "UpdateRoleId", @class = "form-control" })
+                    </div>
+                    <button type="button" class="btn btn-primary" id="UpdateUserBtn">Update User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" style="margin-top:3%">
+
+
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.UserEmail</td>
+                    <td>@(user.Role != null ? user.Role.RoleName : " ")</td>
+                    <td>
+                        <button class="update-btn btn btn-warning" data-id="@user.UserId" data-role-id="@user.RoleId" data-user-name="@user.UserName" data-email="@user.UserEmail">Update</button>
+                        <button class="delete-btn btn btn-danger" data-id="@user.UserId">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function clearModal() {
+        document.getElementById('AddUserForm').reset();
+    }
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#ShowAddUserModal').click(function () {
+        $('#AddUserModal').modal('show');
+        });
+
+        $('#AddUserBtn').click(function () {
+        var name = $('#UserName').val();
+        var email = $('#UserEmail').val();
+        var password = $('#Password').val();
+        var roleId = $('#SelectedUserRole').val();
+
+        $.ajax({
+            url: '@Url.Action("AddUser", "User")',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({ UserName: name, UserEmail: email, Password: password, RoleId: roleId }),
+            success: function (response) {
+                if (response.success) {
+                    $('#AddUserModal').modal('hide');
+                    location.reload();
+                } else {
+                    alert('Error adding User: ilk ' + response.errors.join(' '));
+                }
+            },
+            error: function () {
+                alert('Error adding User. son');
+            }
+        });
+    });
+
+
+
+        $('.update-btn').click(function () {
+        var UserId = $(this).data('id');
+            var UserName = $(this).data('user-name');
+            var UserEmail = $(this).data('email');
+            var RoleId = $(this).data('role-id');
+
+            $('#UpdateUserName').val(UserName);
+            $('#UpdateUserId').val(UserId);
+            $('#UpdateUserEmail').val(UserEmail);
+            $('#UpdateRoleId').val(RoleId);
+
+            $('#UpdateUserModal').modal('show');
+        });
+
+        $('#UpdateUserBtn').click(function () {
+            var userId = $('#UpdateUserId').val();
+            var userName = $('#UpdateUserName').val();
+            var userEmail = $('#UpdateUserEmail').val();
+            var roleId = $('#UpdateRoleId').val();
+
+
+            $.ajax({
+                url:'@Url.Action("UpdateUser", "User")',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    UserId: userId,
+                    UserName: userName,
+                    UserEmail: userEmail,
+                    RoleId: roleId
+
+                },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error updating user. ilk ' + response.errors);
+                    }
+                },
+                error: function () {
+                    alert('Error updating user. son');
+                }
+            });
+            $('#UpdateUserModal').modal('hide');
+        });
+
+
+
+
+        $('.delete-btn').click(function () {
+            var userId = $(this).data('id');
+            $('#ConfirmDelete').data('id', userId);
+            $('#DeleteConfirmation').modal('show');
+        });
+
+        $('#ConfirmDelete').click(function () {
+            var userId = $(this).data('id');
+
+            $.ajax({
+                url: '@Url.Action("DeleteUser", "User")',
+                type: 'POST',
+                dataType: 'json',
+                data: { UserId: userId },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('Error deleting user. ilk ' + response.errors.join(' '));
+                    }
+                },
+                error: function () {
+                    alert('Error deleting user.');
+                }
+            });
+        });
+
+
+
+    });
+</script>
+<script src="~/DataTables/datatables.min.js"></script>
+<link href="~/DataTables/datatables.min.css" rel="stylesheet" />
+@section scripts{
+    <script>
+        var table = new DataTable('#myTable', {
+            "pageLength": 5,
+            "lengthMenu": [[5, 10, 30, -1], [5, 10, 30, "All"]],
+            
+        });
+
+    </script>
+
+}

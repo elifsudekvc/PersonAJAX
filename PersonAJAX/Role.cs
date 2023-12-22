@@ -1,6 +1,9 @@
-﻿using PersonAJAX.Models;
+﻿using Dapper;
+using PersonAJAX.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -9,6 +12,12 @@ namespace PersonAJAX
 {
     public class Role : RoleProvider
     {
+        private readonly string _connectionString;
+
+        public Role()
+        {
+            _connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
+        }
         public override string ApplicationName { get; set; }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -41,13 +50,21 @@ namespace PersonAJAX
 
         public override string[] GetRolesForUser(string username)
         {
-            using (DB db=new DB())
+            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
             {
-                var user = db.Users.Include("Role").Where(a => a.UserEmail == username).FirstOrDefault().Role.RoleName;
-                string[] role = { user };
-                return role;
+                dbConnection.Open();
+
+                var userRole = dbConnection.QueryFirstOrDefault<string>("SELECT r.RoleName FROM Users u INNER JOIN UserRoles r ON u.RoleId = r.RoleId WHERE u.UserEmail = @UserEmail", new { UserEmail = username });
+
+                if (userRole != null)
+                {
+                    return new string[] { userRole };
+                }
             }
+
+            return new string[0];
         }
+
 
         public override string[] GetUsersInRole(string roleName)
         {

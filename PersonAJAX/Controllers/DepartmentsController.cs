@@ -20,7 +20,7 @@ namespace PersonAJAX.Controllers
             _connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
         }
 
-
+        [CustomAuthorize("Admin")]
         public async Task<ActionResult> Index()
         {
             using (IDbConnection dbConnection = new SqlConnection(_connectionString))
@@ -46,7 +46,7 @@ namespace PersonAJAX.Controllers
                 return Json(new { success = true, DepartmentID });
             }
         }
-
+        
         public async Task<JsonResult> GetPersonById(int DepartmentId)
         {
             using (var dbConnection = new SqlConnection(_connectionString))
@@ -73,6 +73,7 @@ namespace PersonAJAX.Controllers
         }
 
         [HttpPost]
+        
         public async Task<JsonResult> UpdateDepartments(Departments departments)
         {
             try

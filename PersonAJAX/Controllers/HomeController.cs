@@ -25,7 +25,7 @@ namespace PersonAJAX.Controllers
             return View();
         }
 
-        [Authorize (Roles ="User, Admin")]
+        [CustomAuthorize("Admin", "User")]
         public async Task<ActionResult> UserArea()
         {
             using (SqlConnection dbConnection = new SqlConnection(_connectionString))
@@ -54,7 +54,7 @@ namespace PersonAJAX.Controllers
             }
 
         }
-        [Authorize (Roles ="Admin")]
+        [CustomAuthorize("Admin")]
         public ActionResult AdminArea()
         {
             return View();

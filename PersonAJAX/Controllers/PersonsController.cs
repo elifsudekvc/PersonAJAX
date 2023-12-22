@@ -20,7 +20,7 @@ namespace PersonAJAX.Controllers
         {
             _connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
         }
-
+        [CustomAuthorize("Admin")]
         public async Task<ActionResult> Index()
         {
             using (SqlConnection dbConnection = new SqlConnection(_connectionString))
@@ -88,7 +88,7 @@ namespace PersonAJAX.Controllers
         }
 
 
-
+        
         public async Task<JsonResult> GetPersonById(int PersonId)
         {
             using (var dbConnection = new SqlConnection(_connectionString))
@@ -115,6 +115,7 @@ namespace PersonAJAX.Controllers
         }
 
         [HttpPost]
+        
         public async Task<JsonResult> UpdatePerson(Persons persons)
         {
             try
@@ -156,6 +157,7 @@ namespace PersonAJAX.Controllers
 
 
         [HttpPost]
+        
         public async Task<JsonResult> DeletePerson(int PersonId)
         {
             using (SqlConnection dbConnection = new SqlConnection(_connectionString))

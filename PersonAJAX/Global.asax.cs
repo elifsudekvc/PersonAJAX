@@ -13,25 +13,32 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Ninject;
 using PersonAJAX.Models;
+using Dapper;
 
 namespace PersonAJAX
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private readonly string _connectionString;
+
+        public MvcApplication()
+        {
+            _connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
+        }
         protected void Application_Start()
         {
 
-            using (DB db = new DB())
+            using (SqlConnection dbConnection = new SqlConnection(_connectionString))
             {
-                if (db.Roles.Count()==0)
+                dbConnection.Open();
+
+                
+                int count = dbConnection.ExecuteScalar<int>("SELECT COUNT(*) FROM UserRoles");
+
+                if (count == 0)
                 {
-                    var role1 = new UserRole();
-                    var role2 = new UserRole();
-                    role1.RoleName = "User";
-                    role2.RoleName = "Admin";
-                    db.Roles.Add(role1);
-                    db.Roles.Add(role2);
-                    db.SaveChanges();
+                    dbConnection.Execute("INSERT INTO UserRoles (RoleName) VALUES (@RoleName)", new { RoleName = "User" });
+                    dbConnection.Execute("INSERT INTO UserRoles (RoleName) VALUES (@RoleName)", new { RoleName = "Admin" });
                 }
             }
 
